@@ -20,5 +20,9 @@ public class Constants {
     public static final String PHONE_NUMBER = "phone_number";
     public static final String DATE_FORMAT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ssxxx";
     public static final String TIMESTAMP = "TIMESTAMP";
-    public static final String UTC = "utc";
+    public static final String TYPE = "type";
+    public static final String CATEGORY = "category";
+    public static final String CITY_ID = "city_id";
+    public static final String UTC = "UTC";
+
 }

@@ -13,8 +13,10 @@ public class CityDTO {
     private long id;
     private String name;
 
+    @JsonIgnore
     private Long createdBy;
 
+    @JsonIgnore
     private Long updatedBy ;
 
     @JsonIgnore
@@ -25,7 +27,7 @@ public class CityDTO {
     @UpdateTimestamp
     private Date updatedAt;
 
-    private boolean isActive = true;
+    private boolean isActive;
 
-    private boolean isDeleted = false;
+    private boolean isDeleted;
 }

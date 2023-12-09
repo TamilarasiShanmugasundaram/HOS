@@ -1,32 +1,25 @@
 package com.Hos.core.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
-@Data
-public class UserDTO {
-    private Long id;
-
-    private String firstName;
+public class RequestDTO {
+    private long id;
 
     private String username;
 
-    private String phoneNumber;
 
-    @JsonIgnore
-    private String otp;
+    private String type;
 
-    @JsonIgnore
-    private String password;
+    private String category;
 
-    @JsonIgnore
+    private CityDTO city;
+
     private Long createdBy;
 
-    @JsonIgnore
     private Long updatedBy ;
 
     @JsonIgnore

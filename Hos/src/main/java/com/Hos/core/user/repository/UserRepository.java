@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long> {
     List<User> findByIsDeletedFalse();
+
+    User findByUsernameAndIsDeletedFalse(String username);
 }

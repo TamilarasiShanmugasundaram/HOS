@@ -1,12 +1,11 @@
 package com.Hos.core.request.service.impl;
 
-import com.Hos.core.common.dto.CityDTO;
+import com.Hos.core.common.model.City;
 import com.Hos.core.common.model.Request;
 import com.Hos.core.request.repository.CityRepository;
 import com.Hos.core.request.repository.RequestRepository;
 import com.Hos.core.request.service.RequestService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +29,19 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<CityDTO> getAllCities() {
-        return modelMapper.map(cityRepository.findByIsDeletedFalse(), new TypeToken<List<CityDTO>>() {
-        }.getType());
+    public List<City> getAllCities() {
+        return cityRepository.findByIsDeletedFalse();
     }
+
+    @Override
+    public Request createRequest(Request request) {
+        return requestRepository.save(request);
+    }
+
+    @Override
+    public City getCityById(long id) {
+        return cityRepository.getCityById(id);
+    }
+
+
 }

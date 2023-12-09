@@ -15,12 +15,13 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @Entity
 @Table(name = Constants.CITY)
-public class City {
+public class City implements Serializable {
     private static final long serialVersionUID = 4174505913611242103L;
 
     @Id
