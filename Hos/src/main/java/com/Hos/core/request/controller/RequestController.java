@@ -1,7 +1,7 @@
 package com.Hos.core.request.controller;
+import com.Hos.core.common.model.Request;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Hos.core.request.Model.Request;
 import com.Hos.core.request.service.RequestService;
 
 import java.util.List;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/request")
