@@ -1,5 +1,6 @@
 package com.Hos.core.common.model;
 
+import com.Hos.core.common.util.Constants;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -12,16 +13,16 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "request")
+@Table(name = Constants.REQUEST)
 public class Request  implements Serializable {
     private static final long serialVersionUID = 4174505913611242103L;
 
     @Id
-    @Column(name = "id")
+    @Column(name = Constants.ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = Constants.NAME)
     private String entity;
 
 }

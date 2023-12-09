@@ -16,10 +16,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private ModelMapper modelMapper= new ModelMapper();
+    private ModelMapper modelMapper = new ModelMapper();
 
     public List<UserDTO> getAllUsers() {
-        return modelMapper.map(userRepository.findAll(), new TypeToken<List<UserDTO>>() {
+        return modelMapper.map(userRepository.findByIsDeletedFalse(), new TypeToken<List<UserDTO>>() {
         }.getType());
     }
 }
