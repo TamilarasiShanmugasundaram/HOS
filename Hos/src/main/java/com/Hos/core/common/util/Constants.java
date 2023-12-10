@@ -24,13 +24,7 @@ public class Constants {
     public static final String CATEGORY = "category";
     public static final String CITY_ID = "city_id";
     public static final String UTC = "UTC";
-
-    public static final String SMTP_HOST = "email-smtp.ap-south-1.amazonaws.com";
-    public static final String SMTP_PORT = "587";
-    public static final String SMTP_PROTOCOL = "TLSv1.2";
-    public static final String EMAIL_USERNAME = "AKIA42P3OJNQHY734BXC";
-    public static final String EMAIL_PASSWORD = "BDXHNTytW4NDwLBVHJWtr2S8PPIlnshJmaoWhViotv5w";
-    public static final String EMAIL_FROM = "MDTLabs <no-reply@medtroniclabs.org>";
+    public static final String EMAIL_FROM = "tamilarasisk13@gmail.com";
     public static final String EMAIL_SUBJECT = "OTP Notification";
     public static final String OTP_SUCCESS_RESPONSE = "Otp send Successfully";
     public static final String OTP_FAILURE_RESPONSE = "Unable to send OTP";

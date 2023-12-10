@@ -1,26 +1,30 @@
 package com.Hos.core.user.service.impl;
 
+import com.Hos.core.common.dto.UserDTO;
 import com.Hos.core.common.model.User;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.user.repository.UserRepository;
 import com.Hos.core.user.service.UserService;
-import io.micrometer.common.util.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Objects;
 
 import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.Session;
-import javax.mail.Transport;
+
+
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private UserRepository userRepository;
@@ -54,45 +58,25 @@ public class UserServiceImpl implements UserService {
         User user = getUserByUsername(username);
         String response = null;
         String otp = generateUserOtp(user.getOtp());
+        String body = "HOS Security Code:\n" + otp +
+                " is the code to complete your login process.\n" +
+                "Do not share this code with anyone for security reasons.";
         if (Objects.nonNull(user)) {
-            String body = "HOS Security Code:\n" + otp +
-                    " is the code to complete your login process.\n" +
-                    "Do not share this code with anyone for security reasons.";
-            Properties properties = new Properties();
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.host", Constants.SMTP_HOST);
-            properties.put("mail.smtp.port", Constants.SMTP_PORT);
-            properties.put("mail.smtp.ssl.protocols", Constants.SMTP_PROTOCOL);
-
-            Authenticator auth = new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(Constants.EMAIL_USERNAME, Constants.EMAIL_PASSWORD);
-                }
-            };
-            try {
-                Session session = Session.getInstance(properties, auth);
-                MimeMessage mimeMessage = new MimeMessage(session);
-                mimeMessage.addHeader("Content-type", "text/HTML; charset=UTF-8");
-                mimeMessage.addHeader("format", "flowed");
-                mimeMessage.addHeader("Content-Transfer-Encoding", "8bit");
-                mimeMessage.setFrom(Constants.EMAIL_FROM);
-                mimeMessage.setReplyTo(InternetAddress.parse(Constants.EMAIL_FROM, false));
-                mimeMessage.setSubject(Constants.EMAIL_SUBJECT, "UTF-8");
-                mimeMessage.setContent(body, "text/html; charset=utf-8");
-                mimeMessage.setSentDate(new Date());
-                mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(
-                        StringUtils.isNotBlank(user.getUsername()) ? user.getUsername() : "", false));
-//                mimeMessage.setRecipients(Message.RecipientType.CC, InternetAddress
-//                        .parse(StringUtils.isNotBlank(emailDto.getCc()) ? emailDto.getCc() : Constants.EMPTY, false));
-//                mimeMessage.setRecipients(Message.RecipientType.BCC, InternetAddress
-//                        .parse(StringUtils.isNotBlank(emailDto.getBcc()) ? emailDto.getBcc() : Constants.EMPTY, false));
-//                Transport.send(mimeMessage);
-                response = Constants.OTP_SUCCESS_RESPONSE;
-            } catch (Exception e) {
-                response = Constants.OTP_FAILURE_RESPONSE;
-            }
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+            simpleMailMessage.setTo("tamilarasi.shanmugasundaram@ideas2it.com");
+            simpleMailMessage.setSubject(Constants.EMAIL_SUBJECT);
+            simpleMailMessage.setText(body);
+            simpleMailMessage.setFrom(Constants.EMAIL_FROM);
+            javaMailSender.send(simpleMailMessage);
+            response = Constants.OTP_SUCCESS_RESPONSE;
+            user.setOtp(otp);
+            userRepository.save(user);
         }
         return response;
+    }
+
+    @Override
+    public UserDTO signup(@RequestBody Map<String, String> request) {
+return new UserDTO();
     }
 }

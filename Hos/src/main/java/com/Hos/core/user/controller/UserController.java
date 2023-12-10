@@ -30,10 +30,10 @@ public class UserController {
 		return new ModelMapper().map(userService.getUserByUsername(request.get(Constants.USERNAME)), UserDTO.class);
 	}
 
-//	@PostMapping("/signup")
-//	public UserDTO signup(@RequestBody Map<String, String>) {
-//
-//	}
+	@PostMapping("/signup")
+	public UserDTO signup(@RequestBody Map<String, String> request) {
+		return userService.signup(request);
+	}
 
 	@PostMapping("/send-otp")
 	public String sendOtp(@RequestBody Map<String, String> request) {

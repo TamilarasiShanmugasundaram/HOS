@@ -6,3 +6,13 @@ spring:
     url: jdbc:postgresql://192.168.0.208:5432/hos?serverTimezone=UTC
     username : postgres
     password : root
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: tamilarasisk13@gmail.com
+    password: bozj uqtm ujwd alsw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true

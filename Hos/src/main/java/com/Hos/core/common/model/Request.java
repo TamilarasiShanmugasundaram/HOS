@@ -24,7 +24,7 @@ import java.util.Date;
 @Entity
 @Table(name = Constants.REQUEST)
 public class Request  implements Serializable {
-    private static final long serialVersionUID = 4174505913611242103L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = Constants.ID)
@@ -33,7 +33,6 @@ public class Request  implements Serializable {
 
     @Column(name = Constants.USERNAME)
     private String username;
-
 
     @Column(name = Constants.TYPE)
     private String type;
