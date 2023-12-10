@@ -1,6 +1,7 @@
 package com.Hos.core.user.service.impl;
 
 import com.Hos.core.common.model.User;
+import com.Hos.core.common.util.Constants;
 import com.Hos.core.user.repository.UserRepository;
 import com.Hos.core.user.service.UserService;
 import io.micrometer.common.util.StringUtils;
@@ -60,13 +61,13 @@ public class UserServiceImpl implements UserService {
             Properties properties = new Properties();
             properties.put("mail.smtp.auth", "true");
             properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.host", "email-smtp.ap-south-1.amazonaws.com");
-            properties.put("mail.smtp.port", "587");
-            properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+            properties.put("mail.smtp.host", Constants.SMTP_HOST);
+            properties.put("mail.smtp.port", Constants.SMTP_PORT);
+            properties.put("mail.smtp.ssl.protocols", Constants.SMTP_PROTOCOL);
 
             Authenticator auth = new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("AKIA42P3OJNQHY734BXC", "BDXHNTytW4NDwLBVHJWtr2S8PPIlnshJmaoWhViotv5w");
+                    return new PasswordAuthentication(Constants.EMAIL_USERNAME, Constants.EMAIL_PASSWORD);
                 }
             };
             try {
@@ -75,21 +76,21 @@ public class UserServiceImpl implements UserService {
                 mimeMessage.addHeader("Content-type", "text/HTML; charset=UTF-8");
                 mimeMessage.addHeader("format", "flowed");
                 mimeMessage.addHeader("Content-Transfer-Encoding", "8bit");
-                mimeMessage.setFrom("MDTLabs <no-reply@medtroniclabs.org>");
-                mimeMessage.setReplyTo(InternetAddress.parse("MDTLabs <no-reply@medtroniclabs.org>", false));
-                mimeMessage.setSubject("OTP Notification", "UTF-8");
+                mimeMessage.setFrom(Constants.EMAIL_FROM);
+                mimeMessage.setReplyTo(InternetAddress.parse(Constants.EMAIL_FROM, false));
+                mimeMessage.setSubject(Constants.EMAIL_SUBJECT, "UTF-8");
                 mimeMessage.setContent(body, "text/html; charset=utf-8");
                 mimeMessage.setSentDate(new Date());
                 mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(
-                        StringUtils.isNotBlank("tamilarasi.shanmugasundaram@ideas2it.com") ? "tamilarasi.shanmugasundaram@ideas2it.com" : "", false));
+                        StringUtils.isNotBlank(user.getUsername()) ? user.getUsername() : "", false));
 //                mimeMessage.setRecipients(Message.RecipientType.CC, InternetAddress
 //                        .parse(StringUtils.isNotBlank(emailDto.getCc()) ? emailDto.getCc() : Constants.EMPTY, false));
 //                mimeMessage.setRecipients(Message.RecipientType.BCC, InternetAddress
 //                        .parse(StringUtils.isNotBlank(emailDto.getBcc()) ? emailDto.getBcc() : Constants.EMPTY, false));
-                Transport.send(mimeMessage);
-                response = "Otp send Successfully";
+//                Transport.send(mimeMessage);
+                response = Constants.OTP_SUCCESS_RESPONSE;
             } catch (Exception e) {
-                response = "excep";
+                response = Constants.OTP_FAILURE_RESPONSE;
             }
         }
         return response;
