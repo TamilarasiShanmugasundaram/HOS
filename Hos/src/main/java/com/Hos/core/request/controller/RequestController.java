@@ -1,7 +1,10 @@
 package com.Hos.core.request.controller;
 import com.Hos.core.common.dto.CityDTO;
+import com.Hos.core.common.dto.RequestDTO;
 import com.Hos.core.common.dto.RequestFormDTO;
+import com.Hos.core.common.dto.ResponseDTO;
 import com.Hos.core.common.model.Request;
+import com.Hos.core.common.model.Response;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.request.service.RequestService;
 import org.modelmapper.ModelMapper;
@@ -49,5 +52,15 @@ public class RequestController {
 	@PostMapping("/cityById")
 	public CityDTO getCityById(@RequestBody Map<String, String> request) {
 		return new ModelMapper().map(requestService.getCityById(Long.parseLong(request.get(Constants.ID))), CityDTO.class);
+	}
+
+	@PostMapping("/requestById")
+	public RequestDTO getRequestById(@RequestBody Map<String, String> request) {
+		return new ModelMapper().map(requestService.getRequestById(Long.parseLong(request.get(Constants.ID))), RequestDTO.class);
+	}
+
+	@PostMapping("save-response")
+	public ResponseDTO saveResponse(@RequestBody Map<String, String> request) {
+		return new ModelMapper().map(requestService.saveResponse(request), ResponseDTO.class);
 	}
 }

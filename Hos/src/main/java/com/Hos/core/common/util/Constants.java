@@ -4,10 +4,13 @@ public class Constants {
 
     public static final String TABLE_USER = "\"user\"";
     public static final String REQUEST = "request";
+    public static final String REQUESTID = "requestId";
+    public static final String USERID = "userId";
     public static final String RESPONSE = "response";
     public static final String CITY = "city";
     public static final String ID = "id";
     public static final String NAME = "name";
+    public static final String NOTES = "notes";
     public static final String FIRST_NAME = "first_name";
     public static final String USER_ID = "user_id";
     public static final String REQUEST_ID = "request_id";

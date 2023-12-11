@@ -1,7 +1,7 @@
 package com.Hos.core.user.controller;
 import com.Hos.core.common.dto.SignUpDTO;
 import com.Hos.core.common.dto.UserDTO;
-import com.Hos.core.common.exception.CustomException;
+//import com.Hos.core.common.exception.CustomException;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.user.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -29,6 +29,11 @@ public class UserController {
 
 	@PostMapping("/get-by-username")
 	public UserDTO getUserByUsername(@RequestBody Map<String, String> request) {
+		return new ModelMapper().map(userService.getUserByUsername(request.get(Constants.USERNAME)), UserDTO.class);
+	}
+
+	@PostMapping("/get-by-id")
+	public UserDTO getUserById(@RequestBody Map<String, String> request) {
 		return new ModelMapper().map(userService.getUserByUsername(request.get(Constants.USERNAME)), UserDTO.class);
 	}
 

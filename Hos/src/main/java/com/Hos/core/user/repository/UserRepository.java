@@ -12,6 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long>, PagingAndSort
     List<User> findByIsDeletedFalse();
 
     User findByUsernameAndIsDeletedFalse(String username);
+    User findByIdAndIsDeletedFalse(long id);
     User findByUsernameAndPasswordAndIsDeletedFalse(String username, String password);
 
     List<User> findByCityIdAndIsDeletedFalse(long cityId);
