@@ -22,13 +22,16 @@ public class Response  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = Constants.NOTES)
+    private String notes;
+
     @OneToMany
     @JoinColumn(name = Constants.USER_ID)
     private User user;
 
     @OneToMany
     @JoinColumn(name = Constants.REQUEST_ID)
-    private User request;
+    private Request request;
 
     @Column(name = Constants.CREATED_BY, updatable = false, nullable = false)
     private Long createdBy;

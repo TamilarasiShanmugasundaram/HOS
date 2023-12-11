@@ -41,10 +41,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String username) {
-        System.out.println(username +"    ssssssssssssssssssssssssssssss");
-        User s = userRepository.findByUsernameAndIsDeletedFalse(username);
-        System.out.println(s + "   111111111111111111111111111");
-        return s;
+        return userRepository.findByUsernameAndIsDeletedFalse(username);
+    }
+
+    @Override
+    public User getUserById(long id) {
+        return userRepository.findByIdAndIsDeletedFalse(id);
     }
 
     private String generateUserOtp(String oldOtp) {
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService {
         User user = getUserByUsername(request.getUsername());
         System.out.println(user + "   ussssss");
         if(!user.getOtp().equals(request.getOtp())) {
-            throw new CustomException("Invalid OTP", "401");
+//            throw new CustomException("Invalid OTP", "401");
         }
         user.setPassword(request.getPassword());
         return new ModelMapper().map(userRepository.save(user), UserDTO.class);

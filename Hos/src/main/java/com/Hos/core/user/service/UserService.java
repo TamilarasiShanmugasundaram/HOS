@@ -2,7 +2,7 @@ package com.Hos.core.user.service;
 
 import com.Hos.core.common.dto.SignUpDTO;
 import com.Hos.core.common.dto.UserDTO;
-import com.Hos.core.common.exception.CustomException;
+//import com.Hos.core.common.exception.CustomException;
 import com.Hos.core.common.model.User;
 
 import java.util.List;
@@ -12,9 +12,10 @@ public interface UserService {
     List<User> getAllUsers();
 
     User getUserByUsername(String username);
+    User getUserById(long id);
 
     String sendOtp(String username);
-    UserDTO signup(SignUpDTO request) throws CustomException;
+    UserDTO signup(SignUpDTO request);
 
     List<User> getCommunityUsers(long cityId);
 }

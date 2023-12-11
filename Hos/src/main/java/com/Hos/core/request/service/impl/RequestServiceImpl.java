@@ -2,14 +2,20 @@ package com.Hos.core.request.service.impl;
 
 import com.Hos.core.common.model.City;
 import com.Hos.core.common.model.Request;
+import com.Hos.core.common.model.Response;
+import com.Hos.core.common.util.Constants;
 import com.Hos.core.request.repository.CityRepository;
 import com.Hos.core.request.repository.RequestRepository;
+import com.Hos.core.request.repository.ResponseRepository;
 import com.Hos.core.request.service.RequestService;
+import com.Hos.core.user.repository.UserRepository;
+import com.Hos.core.user.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -18,7 +24,13 @@ public class RequestServiceImpl implements RequestService {
     private RequestRepository requestRepository;
 
     @Autowired
+    private ResponseRepository responseRepository;
+
+    @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private UserService userService;
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -35,20 +47,6 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request createRequest(Request request) {
-        // Request rr1 = requestRepository.save(request);
-        // System.out.println("values sssssssssssssssssssss1 " + rr1);
-        // Request rr2 =requestRepository.save(request);
-        // System.out.println("values sssssssssssssssssssss1 2" + rr2);
-
-        // Request rr3 =requestRepository.save(request);
-         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
-         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
-         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
-         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
-         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
-         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
-
-
         return requestRepository.save(request);
     }
 
@@ -57,5 +55,17 @@ public class RequestServiceImpl implements RequestService {
         return cityRepository.getCityById(id);
     }
 
+    @Override
+    public Request getRequestById(long id) {
+        return requestRepository.findByIdAndIsDeletedFalseAndIsRequestClosedFalse(id);
+    }
 
+    @Override
+    public Response saveResponse(Map<String, String> request) {
+        Response response = new Response();
+        response.setNotes(request.get(Constants.NOTES));
+        response.setRequest(getRequestById(Long.parseLong(request.get(Constants.REQUESTID))));
+        response.setUser(userService.getUserById(Long.parseLong(request.get(Constants.USERID))));
+        return responseRepository.save(response);
+    }
 }
