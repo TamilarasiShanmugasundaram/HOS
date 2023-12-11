@@ -27,8 +27,7 @@ public class RequestController {
 	@PostMapping
 	public Request createRequest(@RequestBody RequestFormDTO requestFormDTO) {
 		Request request = new ModelMapper().map(requestFormDTO, Request.class);
-		request.setCity(requestService.getCityById(requestFormDTO.getCityId()));
-		request.setId(null);
+		request.setCity(requestService.getCityById(requestFormDTO.getCity()));
 		return requestService.createRequest(request);
 	}
     @PostMapping("/list")
