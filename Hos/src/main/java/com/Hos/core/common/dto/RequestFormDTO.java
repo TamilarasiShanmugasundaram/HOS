@@ -9,7 +9,7 @@ public class RequestFormDTO {
 
     private String category;
 
-    private long cityId;
+    private long city;
 
     private Long createdBy;
 
