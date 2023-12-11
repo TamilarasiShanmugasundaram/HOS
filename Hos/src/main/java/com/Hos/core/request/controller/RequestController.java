@@ -31,13 +31,8 @@ public class RequestController {
 		request.setId(null);
 		return requestService.createRequest(request);
 	}
-    @GetMapping("/list")
-	public List<Request> hello() {
-		System.out.println("nnnnnnnnnnnnnnnnnnnnnn");
-		System.out.println(requestService.getRequest());
-
-		System.out.println("----------------------");
-
+    @PostMapping("/list")
+	public List<Request> getRequests() {
 		return requestService.getRequest();
 	}
 

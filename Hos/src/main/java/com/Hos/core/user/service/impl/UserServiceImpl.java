@@ -1,6 +1,8 @@
 package com.Hos.core.user.service.impl;
 
+import com.Hos.core.common.dto.SignUpDTO;
 import com.Hos.core.common.dto.UserDTO;
+import com.Hos.core.common.exception.CustomException;
 import com.Hos.core.common.model.User;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.user.repository.UserRepository;
@@ -8,7 +10,6 @@ import com.Hos.core.user.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +41,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String username) {
-        return userRepository.findByUsernameAndIsDeletedFalse(username);
+        System.out.println(username +"    ssssssssssssssssssssssssssssss");
+        User s = userRepository.findByUsernameAndIsDeletedFalse(username);
+        System.out.println(s + "   111111111111111111111111111");
+        return s;
     }
 
     private String generateUserOtp(String oldOtp) {
@@ -67,7 +71,7 @@ public class UserServiceImpl implements UserService {
             simpleMailMessage.setSubject(Constants.EMAIL_SUBJECT);
             simpleMailMessage.setText(body);
             simpleMailMessage.setFrom(Constants.EMAIL_FROM);
-            javaMailSender.send(simpleMailMessage);
+//            javaMailSender.send(simpleMailMessage);
             response = Constants.OTP_SUCCESS_RESPONSE;
             user.setOtp(otp);
             userRepository.save(user);
@@ -76,7 +80,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO signup(@RequestBody Map<String, String> request) {
-return new UserDTO();
+    public UserDTO signup(SignUpDTO request) {
+        User user = getUserByUsername(request.getUsername());
+        System.out.println(user + "   ussssss");
+        if(!user.getOtp().equals(request.getOtp())) {
+            throw new CustomException("Invalid OTP", "401");
+        }
+        user.setPassword(request.getPassword());
+        return new ModelMapper().map(userRepository.save(user), UserDTO.class);
+    }
+
+    @Override
+    public List<User> getCommunityUsers(long cityId) {
+        return userRepository.findByCityIdAndIsDeletedFalse(cityId);
     }
 }

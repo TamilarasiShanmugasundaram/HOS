@@ -1,5 +1,7 @@
 package com.Hos.core.user.controller;
+import com.Hos.core.common.dto.SignUpDTO;
 import com.Hos.core.common.dto.UserDTO;
+import com.Hos.core.common.exception.CustomException;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.user.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -31,7 +33,7 @@ public class UserController {
 	}
 
 	@PostMapping("/signup")
-	public UserDTO signup(@RequestBody Map<String, String> request) {
+	public UserDTO signup(@RequestBody SignUpDTO request) {
 		return userService.signup(request);
 	}
 
