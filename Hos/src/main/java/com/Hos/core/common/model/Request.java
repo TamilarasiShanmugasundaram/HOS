@@ -29,7 +29,7 @@ public class Request  implements Serializable {
     @Id
     @Column(name = Constants.ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = Constants.USERNAME)
     private String username;
@@ -67,5 +67,8 @@ public class Request  implements Serializable {
 
     @Column(name = Constants.IS_DELETED)
     private boolean isDeleted = false;
+
+    @Column(name = Constants.IS_REQUEST_CLOSED)
+    private boolean isRequestClosed = false;
 
 }
