@@ -1,7 +1,7 @@
-package com.Hos.core.common.model;
+package com.hos.authservice.common.model;
 
-import com.Hos.core.common.util.Constants;
-import com.Hos.core.common.util.CustomDateSerializer;
+import com.hos.authservice.common.util.Constants;
+import com.hos.authservice.common.util.CustomDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,8 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,27 +20,27 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = Constants.REQUEST)
-public class Request  implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+@Table(name = Constants.TABLE_USER)
+public class User  implements Serializable  {
     @Id
     @Column(name = Constants.ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = Constants.FIRST_NAME)
+    private String firstName;
+
     @Column(name = Constants.USERNAME)
     private String username;
 
-    @Column(name = Constants.TYPE)
-    private String type;
+    @Column(name = Constants.PHONE_NUMBER)
+    private String phoneNumber;
 
-    @Column(name = Constants.CATEGORY)
-    private String category;
+    @Column(name = Constants.OTP)
+    private String otp;
 
-    @ManyToOne
-    @JoinColumn(name = Constants.CITY_ID)
-    private City city;
+    @Column(name = Constants.PASSWORD)
+    private String password;
 
     @Column(name = Constants.CREATED_BY, updatable = false, nullable = false)
     private Long createdBy;
@@ -67,5 +65,5 @@ public class Request  implements Serializable {
 
     @Column(name = Constants.IS_DELETED)
     private boolean isDeleted = false;
-
 }
+

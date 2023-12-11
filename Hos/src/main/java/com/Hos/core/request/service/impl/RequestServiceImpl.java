@@ -35,6 +35,20 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request createRequest(Request request) {
+        // Request rr1 = requestRepository.save(request);
+        // System.out.println("values sssssssssssssssssssss1 " + rr1);
+        // Request rr2 =requestRepository.save(request);
+        // System.out.println("values sssssssssssssssssssss1 2" + rr2);
+
+        // Request rr3 =requestRepository.save(request);
+         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
+         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
+         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
+         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
+         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
+         System.out.println("values sssssssssssssssssssss33333333 " + request.getId());
+
+
         return requestRepository.save(request);
     }
 

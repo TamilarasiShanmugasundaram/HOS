@@ -1,4 +1,4 @@
-package com.Hos.core.common.util;
+package com.hos.authservice.common.util;
 
 public class Constants {
 
@@ -24,15 +24,8 @@ public class Constants {
     public static final String CATEGORY = "category";
     public static final String CITY_ID = "city_id";
     public static final String UTC = "UTC";
-    public static final String EMAIL_FROM = "tamilarasisk13@gmail.com";
-    public static final String EMAIL_SUBJECT = "OTP Notification";
-    public static final String OTP_SUCCESS_RESPONSE = "Otp send Successfully";
-    public static final String OTP_FAILURE_RESPONSE = "Unable to send OTP";
-    public static final String AUTHORIZATION = "Authorization";
-    public static final String TOKEN_EXPIRED ="Token expired";
     public static final String JWT_SECRET = "Hos_2023";
     public static final long JWT_EXPIRE_TIME = 864_000_000;
-
 
 
 }

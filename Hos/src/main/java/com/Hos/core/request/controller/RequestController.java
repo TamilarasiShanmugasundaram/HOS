@@ -28,11 +28,22 @@ public class RequestController {
 	public Request createRequest(@RequestBody RequestFormDTO requestFormDTO) {
 		Request request = new ModelMapper().map(requestFormDTO, Request.class);
 		request.setCity(requestService.getCityById(requestFormDTO.getCityId()));
+		request.setId(null);
 		return requestService.createRequest(request);
 	}
     @GetMapping("/list")
 	public List<Request> hello() {
+		System.out.println("nnnnnnnnnnnnnnnnnnnnnn");
+		System.out.println(requestService.getRequest());
+
+		System.out.println("----------------------");
+
 		return requestService.getRequest();
+	}
+
+	@GetMapping("/one")
+	public String hello1() {
+		return "Hellp";
 	}
 
 	@GetMapping("/city-list")
