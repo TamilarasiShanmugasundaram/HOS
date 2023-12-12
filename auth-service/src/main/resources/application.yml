@@ -7,7 +7,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://172.20.10.3:5434/spice_af_dev_local?serverTimezone=UTC
+    url: jdbc:postgresql://192.168.23.51:5432/hos?serverTimezone=UTC
     username : postgres
     password : root
 logging:

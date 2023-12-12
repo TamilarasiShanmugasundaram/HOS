@@ -25,11 +25,11 @@ public class Response  implements Serializable {
     @Column(name = Constants.NOTES)
     private String notes;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = Constants.USER_ID)
     private User user;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = Constants.REQUEST_ID)
     private Request request;
 
