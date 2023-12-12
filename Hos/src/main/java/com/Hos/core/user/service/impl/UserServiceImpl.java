@@ -86,7 +86,11 @@ public class UserServiceImpl implements UserService {
         User user = getUserByUsername(request.getUsername());
         System.out.println(user + "   ussssss");
         if(!user.getOtp().equals(request.getOtp())) {
-//            throw new CustomException("Invalid OTP", "401");
+            throw new CustomException("Invalid OTP", "401");
+        }
+        System.out.println(user.getPassword() + "    " + request.getPassword());
+        if(!user.getPassword().equals(request.getPassword())) {
+            throw new CustomException("Invalid Password", "401");
         }
         user.setPassword(request.getPassword());
         return new ModelMapper().map(userRepository.save(user), UserDTO.class);
