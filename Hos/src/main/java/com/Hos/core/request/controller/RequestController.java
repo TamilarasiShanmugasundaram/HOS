@@ -49,12 +49,12 @@ public class RequestController {
 		}.getType());
 	}
 
-	@PostMapping("/cityById")
+	@PostMapping("/city-by-id")
 	public CityDTO getCityById(@RequestBody Map<String, String> request) {
 		return new ModelMapper().map(requestService.getCityById(Long.parseLong(request.get(Constants.ID))), CityDTO.class);
 	}
 
-	@PostMapping("/requestById")
+	@PostMapping("/request-by-id")
 	public RequestDTO getRequestById(@RequestBody Map<String, String> request) {
 		return new ModelMapper().map(requestService.getRequestById(Long.parseLong(request.get(Constants.ID))), RequestDTO.class);
 	}

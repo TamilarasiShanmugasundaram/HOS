@@ -4,6 +4,8 @@ server:
       persistent: true
   port: 8099
 spring:
+  jpa:
+    show-sql: true
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://192.168.23.51:5432/hos?serverTimezone=UTC

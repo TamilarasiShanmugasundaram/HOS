@@ -84,11 +84,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO signup(SignUpDTO request) {
         User user = getUserByUsername(request.getUsername());
-        System.out.println(user + "   ussssss");
         if(!user.getOtp().equals(request.getOtp())) {
             throw new CustomException("Invalid OTP", "401");
         }
-        System.out.println(user.getPassword() + "    " + request.getPassword());
         if(!user.getPassword().equals(request.getPassword())) {
             throw new CustomException("Invalid Password", "401");
         }

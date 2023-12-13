@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class CommunityDTO {
     private long id;
-    private String locality;
-    private City cityId;
+    private String username;
+    private String phoneNumber;
 }

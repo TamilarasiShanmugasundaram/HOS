@@ -24,7 +24,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String username = JwtUtil.extractUsername(request.getHeader(Constants.AUTHORIZATION));
-            System.out.println("user Authrized: " + username);
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

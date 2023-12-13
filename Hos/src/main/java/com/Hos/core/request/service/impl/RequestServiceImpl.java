@@ -66,6 +66,8 @@ public class RequestServiceImpl implements RequestService {
         response.setNotes(request.get(Constants.NOTES));
         response.setRequest(getRequestById(Long.parseLong(request.get(Constants.REQUESTID))));
         response.setUser(userService.getUserById(Long.parseLong(request.get(Constants.USERID))));
+        response.setCreatedBy(Long.parseLong(request.get(Constants.USERID)));
+        response.setUpdatedBy(Long.parseLong(request.get(Constants.USERID)));
         return responseRepository.save(response);
     }
 }
