@@ -1,11 +1,13 @@
 package com.Hos.core.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
+@Data
 public class RequestDTO {
     private long id;
 
@@ -33,4 +35,6 @@ public class RequestDTO {
     private boolean isActive;
 
     private boolean isDeleted;
+
+    private boolean isRequestClosed;
 }

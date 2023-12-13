@@ -32,15 +32,6 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
 
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
-         System.out.println("sucesssssssssssssssssssssssssssssssssssssssssssssss");
          String token = JwtUtil.generateToken(String.valueOf(authentication.getPrincipal()).toLowerCase());
          response.getWriter().write(token);
          // if (!response.isCommitted()) {
