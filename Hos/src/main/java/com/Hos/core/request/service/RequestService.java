@@ -16,5 +16,6 @@ public interface RequestService {
     City getCityById(long id);
     Response saveResponse(Map<String, String> request);
     Request getRequestById(long id);
+    City getCityByName(String name);
 
 }

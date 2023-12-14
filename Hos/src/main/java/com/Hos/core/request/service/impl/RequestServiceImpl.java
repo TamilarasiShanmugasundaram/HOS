@@ -13,6 +13,7 @@ import com.Hos.core.user.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,10 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Request getRequestById(long id) {
         return requestRepository.findByIdAndIsDeletedFalseAndIsRequestClosedFalse(id);
+    }
+    @Override
+    public City getCityByName(String name) {
+        return cityRepository.getCityByName(name);
     }
 
     @Override

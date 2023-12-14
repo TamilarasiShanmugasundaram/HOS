@@ -15,8 +15,18 @@ public interface CityRepository extends JpaRepository<City, Long>, PagingAndSort
 
     public static final String GET_CITY_BY_ID = "select city from City as city where"
             + " city.id =:id and city.isActive = true and city.isDeleted = false";
+
+//    public static final String GET_CITY_BY_NAME = "select city from City as city where " +
+//            " (:name is NULL or city.name =:name)";
+
+    public static final String GET_CITY_BY_NAME = "select city from City as city where city.name ILIKE CONCAT(:name, '%') " +
+            " and city.isActive = true and city.isDeleted = false";
+
     List<City> findByIsDeletedFalse();
 
     @Query(value = GET_CITY_BY_ID)
     City getCityById(@Param(Constants.ID) long id);
+
+    @Query(value = GET_CITY_BY_NAME)
+    City getCityByName(@Param(Constants.NAME) String name);
 }

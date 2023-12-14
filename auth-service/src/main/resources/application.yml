@@ -1,6 +1,7 @@
 
 server:
   servlet:
+    contextPath: /auth-service
     session:
       persistent: true
   port: 8098
