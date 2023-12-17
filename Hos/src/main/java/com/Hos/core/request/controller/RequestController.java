@@ -3,6 +3,7 @@ import com.Hos.core.common.dto.CityDTO;
 import com.Hos.core.common.dto.RequestDTO;
 import com.Hos.core.common.dto.RequestFormDTO;
 import com.Hos.core.common.dto.ResponseDTO;
+import com.Hos.core.common.dto.UserRequestDTO;
 import com.Hos.core.common.model.Request;
 import com.Hos.core.common.model.Response;
 import com.Hos.core.common.util.Constants;
@@ -29,9 +30,7 @@ public class RequestController {
 
 	@PostMapping
 	public Request createRequest(@RequestBody RequestFormDTO requestFormDTO) {
-		Request request = new ModelMapper().map(requestFormDTO, Request.class);
-		request.setCity(requestService.getCityById(requestFormDTO.getCity()));
-		return requestService.createRequest(request);
+		return requestService.createRequest(requestFormDTO);
 	}
     @PostMapping("/list")
 	public List<Request> getRequests() {
@@ -69,4 +68,10 @@ public class RequestController {
 	public ResponseDTO saveResponse(@RequestBody Map<String, String> request) {
 		return new ModelMapper().map(requestService.saveResponse(request), ResponseDTO.class);
 	}
+
+	@PostMapping("/user-request-list")
+	public List<Request> getUserRequestList(@RequestBody UserRequestDTO userRequestDTO) throws Exception {
+		return requestService.getUserRequestList(userRequestDTO);
+	}
+
 }

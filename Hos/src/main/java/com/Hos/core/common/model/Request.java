@@ -3,7 +3,11 @@ package com.Hos.core.common.model;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.common.util.CustomDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
@@ -15,10 +19,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -40,9 +47,12 @@ public class Request  implements Serializable {
     @Column(name = Constants.CATEGORY)
     private String category;
 
-    @ManyToOne
-    @JoinColumn(name = Constants.CITY_ID)
-    private City city;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name = "request_city", joinColumns = {
+			@JoinColumn(name = "request_id")}, inverseJoinColumns = {
+			@JoinColumn(name = "city_id")})
+	private Set<City> cities;
 
     @Column(name = Constants.CREATED_BY, updatable = false, nullable = false)
     private Long createdBy;

@@ -1,5 +1,7 @@
 package com.Hos.core.common.dto;
 
+import java.util.List;
+
 import lombok.Data;
 @Data
 public class RequestFormDTO {
@@ -11,7 +13,7 @@ public class RequestFormDTO {
 
     private String category;
 
-    private long city;
+	private List<Long> cityIds;
 
     private Long createdBy;
 
