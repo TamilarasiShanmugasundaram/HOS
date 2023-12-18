@@ -81,4 +81,9 @@ public class Request  implements Serializable {
     @Column(name = Constants.IS_REQUEST_CLOSED)
     private boolean isRequestClosed = false;
 
+    @Column(name = Constants.INFO)
+    private String info;
+
+    @Column(name = Constants.PHONE_NUMBER)
+    private String phoneNumber;
 }

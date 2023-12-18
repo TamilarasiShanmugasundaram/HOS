@@ -42,4 +42,8 @@ public class RequestDTO {
 
     private List<Long> responserId;
 
+
+    private String info;
+
+    private boolean isMyRequest;
 }

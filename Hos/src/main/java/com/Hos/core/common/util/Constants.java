@@ -18,6 +18,7 @@ public class Constants {
     public static final String REQUEST_ID = "request_id";
     public static final String USERNAME = "username";
     public static final String CREATED_BY = "created_by";
+    public static final String CREATEDBY = "createdBy";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_BY = "updated_by";
     public static final String UPDATED_AT = "updated_at";
@@ -33,6 +34,7 @@ public class Constants {
     public static final String TIMESTAMP = "TIMESTAMP";
     public static final String TYPE = "type";
     public static final String CATEGORY = "category";
+    public static final String INFO = "info";
     public static final String CITY_ID = "city_id";
     public static final String UTC = "UTC";
     public static final String EMAIL_FROM = "tamilarasisk13@gmail.com";
