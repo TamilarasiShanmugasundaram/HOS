@@ -1,9 +1,5 @@
 package com.Hos.core.request.controller;
-import com.Hos.core.common.dto.CityDTO;
-import com.Hos.core.common.dto.RequestDTO;
-import com.Hos.core.common.dto.RequestFormDTO;
-import com.Hos.core.common.dto.ResponseDTO;
-import com.Hos.core.common.dto.UserRequestDTO;
+import com.Hos.core.common.dto.*;
 import com.Hos.core.common.model.Request;
 import com.Hos.core.common.model.Response;
 import com.Hos.core.common.util.Constants;
@@ -34,6 +30,7 @@ public class RequestController {
 	}
     @PostMapping("/list")
 	public List<Request> getRequests() {
+
 		return requestService.getRequest();
 	}
 
@@ -61,7 +58,11 @@ public class RequestController {
 
 	@PostMapping("/request-by-id")
 	public RequestDTO getRequestById(@RequestBody Map<String, String> request) {
-		return new ModelMapper().map(requestService.getRequestById(Long.parseLong(request.get(Constants.ID))), RequestDTO.class);
+		RequestDTO requestDTO = new ModelMapper().map(requestService.getRequestById(Long.parseLong(request.get(Constants.ID))), RequestDTO.class);
+		if(request.get(Constants.CREATEDBY).equals(requestDTO.getCreatedBy()))
+			requestDTO.setMyRequest(Boolean.TRUE);
+		requestDTO.setMyRequest(Boolean.FALSE);
+		return requestDTO;
 	}
 
 	@PostMapping("save-response")
@@ -70,8 +71,16 @@ public class RequestController {
 	}
 
 	@PostMapping("/user-request-list")
-	public List<Request> getUserRequestList(@RequestBody UserRequestDTO userRequestDTO) throws Exception {
-		return requestService.getUserRequestList(userRequestDTO);
+	public List<RequestDTO> getUserRequestList(@RequestBody UserRequestDTO userRequestDTO) throws Exception {
+		List<RequestDTO> requestsDTOs = new ModelMapper().map(requestService.getUserRequestList(userRequestDTO), new TypeToken<List<RequestDTO>>() {
+		}.getType());
+		requestsDTOs.stream().forEach(requestDTO -> {
+			if (requestDTO.getCreatedBy().equals(userRequestDTO.getCreatedBy()))
+				requestDTO.setMyRequest(Boolean.TRUE);
+			requestDTO.setMyRequest(Boolean.FALSE);
+
+		});
+		return requestsDTOs;
 	}
 
 }

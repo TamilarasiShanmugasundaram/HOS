@@ -5,6 +5,7 @@ import com.Hos.core.common.dto.UserRequestDTO;
 import com.Hos.core.common.model.City;
 import com.Hos.core.common.model.Request;
 import com.Hos.core.common.model.Response;
+import com.Hos.core.common.model.User;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.request.repository.CityRepository;
 import com.Hos.core.request.repository.RequestRepository;
@@ -46,6 +47,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> getRequest() {
+
         return requestRepository.findAll();
     }
 
@@ -57,6 +59,8 @@ public class RequestServiceImpl implements RequestService {
     @Override
 	public Request createRequest(RequestFormDTO requestFormDTO) {
 		Request request = new ModelMapper().map(requestFormDTO, Request.class);
+        User user = userService.getUserById(request.getCreatedBy());
+        request.setPhoneNumber(user.getPhoneNumber());
 		request.setCities(getCitiesById(requestFormDTO.getCityIds()));
 		return requestRepository.save(request);
 	}
