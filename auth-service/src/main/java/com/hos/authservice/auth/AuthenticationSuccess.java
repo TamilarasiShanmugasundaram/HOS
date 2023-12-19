@@ -18,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.util.FileCopyUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.hos.authservice.common.util.JwtUtil;
 
 public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler {
@@ -31,9 +33,15 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
-
          String token = JwtUtil.generateToken(String.valueOf(authentication.getPrincipal()).toLowerCase());
-         response.getWriter().write(token);
+
+         response.setStatus(HttpStatus.OK.value());
+         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+         String json = objectWriter.writeValueAsString(authentication.getPrincipal());
+         response.setContentType("text/x-json;charset=UTF-8");
+
+        response.getWriter().write(json);
+        // response.getWriter().write(token);
          // if (!response.isCommitted()) {
         //     response.setStatus(HttpStatus.OK.value());
         //     response.setContentType(Constants.CONTENT_TEXT_TYPE);
