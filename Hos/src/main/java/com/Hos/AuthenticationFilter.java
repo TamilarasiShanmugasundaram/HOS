@@ -22,12 +22,14 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        try {
-            String username = JwtUtil.extractUsername(request.getHeader(Constants.AUTHORIZATION));
-            filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            throw new ExpiredJwtException(null, null, Constants.TOKEN_EXPIRED);
-        }
+                            filterChain.doFilter(request, response);
+
+        // try {
+        //     String username = JwtUtil.extractUsername(request.getHeader(Constants.AUTHORIZATION));
+        //     filterChain.doFilter(request, response);
+        // } catch (Exception e) {
+        //     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        //     throw new ExpiredJwtException(null, null, Constants.TOKEN_EXPIRED);
+        // }
     }
 }

@@ -19,6 +19,8 @@ public interface RequestService {
     City getCityById(long id);
 	Set<City> getCitiesById(List<Long> cityIds);
     Response saveResponse(Map<String, String> request);
+    Request accecptResponse(Map<String, String> request);
+
     Request getRequestById(long id);
     List<Request> getUserRequestList(UserRequestDTO myRequestDTO) throws Exception;
     City getCityByName(String name);

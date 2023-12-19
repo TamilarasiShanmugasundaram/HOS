@@ -15,8 +15,10 @@ public class RequestFormDTO {
 
 	private List<Long> cityIds;
 
+    private String info;
+
     private Long createdBy;
 
-    private Long updatedBy ;
+    private Long updatedBy;
 
 }

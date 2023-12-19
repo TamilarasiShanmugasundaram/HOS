@@ -62,12 +62,19 @@ public class RequestController {
 		if(request.get(Constants.CREATEDBY).equals(requestDTO.getCreatedBy()))
 			requestDTO.setMyRequest(Boolean.TRUE);
 		requestDTO.setMyRequest(Boolean.FALSE);
+	    requestDTO.setType("8825924911");
 		return requestDTO;
 	}
 
-	@PostMapping("save-response")
-	public ResponseDTO saveResponse(@RequestBody Map<String, String> request) {
-		return new ModelMapper().map(requestService.saveResponse(request), ResponseDTO.class);
+	@PostMapping("/save-response")
+	public Request saveResponse(@RequestBody Map<String, String> request) {
+		new ModelMapper().map(requestService.saveResponse(request), ResponseDTO.class);
+		return new Request();
+	}
+
+	@PostMapping("/accecpt-response")
+	public Request accecptResponse(@RequestBody Map<String, String> request) {
+		return new ModelMapper().map(requestService.accecptResponse(request), Request.class);
 	}
 
 	@PostMapping("/user-request-list")

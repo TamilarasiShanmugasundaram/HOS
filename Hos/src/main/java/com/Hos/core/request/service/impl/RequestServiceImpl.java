@@ -120,4 +120,11 @@ public class RequestServiceImpl implements RequestService {
         response.setUpdatedBy(Long.parseLong(request.get(Constants.USERID)));
         return responseRepository.save(response);
     }
+
+    @Override
+    public Request accecptResponse(Map<String, String> request) {
+        Request requestValue = getRequestById(Long.parseLong(request.get(Constants.REQUESTID)));
+        requestValue.setRequestClosed(true);
+        return requestRepository.save(requestValue);
+    }
 }
