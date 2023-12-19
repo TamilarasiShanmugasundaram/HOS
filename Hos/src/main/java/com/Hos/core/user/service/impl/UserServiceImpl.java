@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         if (Objects.nonNull(user)) {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo("tamilarasi.shanmugasundaram@ideas2it.com");
-            simpleMailMessage.setSubject(Constants.EMAIL_SUBJECT);
+            simpleMailMessage.setSubject(Constants.OTP_EMAIL_SUBJECT);
             simpleMailMessage.setText(body);
             simpleMailMessage.setFrom(Constants.EMAIL_FROM);
 //            javaMailSender.send(simpleMailMessage);

@@ -38,7 +38,8 @@ public class Constants {
     public static final String CITY_ID = "city_id";
     public static final String UTC = "UTC";
     public static final String EMAIL_FROM = "tamilarasisk13@gmail.com";
-    public static final String EMAIL_SUBJECT = "OTP Notification";
+    public static final String OTP_EMAIL_SUBJECT = "OTP Notification";
+    public static final String RESPONSE_EMAIL_SUBJECT = "HOS Notification";
     public static final String OTP_SUCCESS_RESPONSE = "Otp send Successfully";
     public static final String HOS = "H@S";
     public static final String SPACE = " ";
