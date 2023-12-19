@@ -15,6 +15,8 @@ import com.Hos.core.user.repository.UserRepository;
 import com.Hos.core.user.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -26,6 +28,9 @@ import java.util.Set;
 
 @Service
 public class RequestServiceImpl implements RequestService {
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private RequestRepository requestRepository;
@@ -113,11 +118,29 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Response saveResponse(Map<String, String> request) {
         Response response = new Response();
-        response.setNotes(request.get(Constants.NOTES));
+        User responsedUser = userService.getUserById(Long.parseLong(request.get(Constants.USERID)));
+        Request userRequest = getRequestById(Long.parseLong(request.get(Constants.REQUESTID)));
+        System.out.println(userRequest + "  ggggggggggggggggggggggggggggg");
+        User resquestedUser = userService.getUserById(userRequest.getCreatedBy());
+        String notes = request.get(Constants.NOTES);
+        String body = "Hi " + resquestedUser.getFirstName() + " \n Some one responsed for your request.here is a details, \n" +
+                "Name: " + responsedUser.getFirstName() + " \n" +
+                "Phone number : " + responsedUser.getPhoneNumber() + " \n" +
+                "Email: " + responsedUser.getUsername() + " \n" +
+                "Notes: " + notes;
+        response.setNotes(notes);
         response.setRequest(getRequestById(Long.parseLong(request.get(Constants.REQUESTID))));
-        response.setUser(userService.getUserById(Long.parseLong(request.get(Constants.USERID))));
+        response.setUser(responsedUser);
         response.setCreatedBy(Long.parseLong(request.get(Constants.USERID)));
         response.setUpdatedBy(Long.parseLong(request.get(Constants.USERID)));
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(resquestedUser.getUsername());
+        simpleMailMessage.setSubject(Constants.RESPONSE_EMAIL_SUBJECT);
+        simpleMailMessage.setText(body);
+        simpleMailMessage.setFrom(Constants.EMAIL_FROM);
+            javaMailSender.send(simpleMailMessage);
+
         return responseRepository.save(response);
     }
 
