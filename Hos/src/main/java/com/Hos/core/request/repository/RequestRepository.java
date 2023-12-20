@@ -24,6 +24,8 @@ public static final String GET_REQUESTS_EXCLUDING_CREATED_BY = "select distinct 
     + "AND (:created_by IS NULL OR req.createdBy != :created_by) AND req.isRequestClosed = false "
     + "order by req.createdBy desc, req.createdAt desc";
 
+
+
     Request findByIdAndIsDeletedFalseAndIsRequestClosedFalse(long id);
 
     @Query(value = GET_REQUESTS_INCLUDING_CREATED_BY)
@@ -37,4 +39,7 @@ public static final String GET_REQUESTS_EXCLUDING_CREATED_BY = "select distinct 
 	                                            @Param(Constants.CREATED_BY) Long createdBy);
 
 	Request findByIdAndIsDeletedFalse(Long requestId);
+
+    List<Request> findByIsRequestClosedFalseOrderByIdDesc();
+
 }

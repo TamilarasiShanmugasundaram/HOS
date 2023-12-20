@@ -11,6 +11,8 @@ public class UserRequestDTO {
 
 	private Boolean isMyRequest;
 
+	private Boolean isOtherRequest;
+
 	private String type;
 
 	private List<Long> cityIds;

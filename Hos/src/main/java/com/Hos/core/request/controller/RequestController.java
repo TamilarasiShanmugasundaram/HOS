@@ -4,6 +4,9 @@ import com.Hos.core.common.model.Request;
 import com.Hos.core.common.model.Response;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.request.service.RequestService;
+
+import jakarta.validation.constraints.Null;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -59,10 +64,22 @@ public class RequestController {
 	@PostMapping("/request-by-id")
 	public RequestDTO getRequestById(@RequestBody Map<String, String> request) {
 		RequestDTO requestDTO = new ModelMapper().map(requestService.getRequestById(Long.parseLong(request.get(Constants.ID))), RequestDTO.class);
-		if(request.get(Constants.CREATEDBY).equals(requestDTO.getCreatedBy()))
+		System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + request.get(Constants.CREATEDBY));
+		System.out.println("-----------------------------" + requestDTO.getCreatedBy());
+
+
+		if (request.get(Constants.CREATEDBY).equals(requestDTO.getCreatedBy().toString())) {
+					System.out.println("00000000000000000000000000000000000000" + request.get(Constants.CREATEDBY));
+
 			requestDTO.setMyRequest(Boolean.TRUE);
-		requestDTO.setMyRequest(Boolean.FALSE);
+		} else {
+			System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii----------------");
+
+			requestDTO.setMyRequest(Boolean.FALSE);
+		}
 	    requestDTO.setType("8825924911");
+		//System.out.println(null);
+		requestDTO.setLocation((!requestDTO.getCities().isEmpty() && !Objects.isNull(requestDTO.getCities().get(0))) ? requestDTO.getCities().get(0).getName() : null);
 		return requestDTO;
 	}
 
@@ -79,14 +96,28 @@ public class RequestController {
 
 	@PostMapping("/user-request-list")
 	public List<RequestDTO> getUserRequestList(@RequestBody UserRequestDTO userRequestDTO) throws Exception {
+		System.out.println("***********************************************************************************************************************");
+		System.out.println("***********************************************************************************************************************");
+		System.out.println(userRequestDTO + "  ------------------------------------ requestttttttttt");
 		List<RequestDTO> requestsDTOs = new ModelMapper().map(requestService.getUserRequestList(userRequestDTO), new TypeToken<List<RequestDTO>>() {
 		}.getType());
+		SimpleDateFormat sdf = new SimpleDateFormat("dd'-'MMM'-'yyyy");
+		System.out.println("requestsDTOs ==========" +requestsDTOs );
 		requestsDTOs.stream().forEach(requestDTO -> {
+			requestDTO.setLocation((!requestDTO.getCities().isEmpty() && !Objects.isNull(requestDTO.getCities().get(0))) ? requestDTO.getCities().get(0).getName() : null);
+			if (requestDTO.getCreatedBy().equals(userRequestDTO.getCreatedBy())) {
+
+				requestDTO.setMyRequest(Boolean.FALSE);
+			}
+			
+			String s = sdf.format(requestDTO.getCreatedAt());
+			System.out.println(s);
 			if (requestDTO.getCreatedBy().equals(userRequestDTO.getCreatedBy()))
 				requestDTO.setMyRequest(Boolean.TRUE);
-			requestDTO.setMyRequest(Boolean.FALSE);
+				requestDTO.setDateString(s);
 
 		});
+		System.out.println(requestsDTOs + "   eeeeeeeeeeeeeeeeeeeeeee");
 		return requestsDTOs;
 	}
 

@@ -25,6 +25,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -52,7 +53,7 @@ public class Request  implements Serializable {
 	@JoinTable(name = "request_city", joinColumns = {
 			@JoinColumn(name = "request_id")}, inverseJoinColumns = {
 			@JoinColumn(name = "city_id")})
-	private Set<City> cities;
+	private List<City> cities;
 
     @Column(name = Constants.CREATED_BY, updatable = false, nullable = false)
     private Long createdBy;

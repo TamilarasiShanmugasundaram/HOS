@@ -76,8 +76,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-	public Set<City> getCitiesById(List<Long> cityIds) {
-		return new HashSet<>(cityRepository.getAllCityById(cityIds));
+	public List<City> getCitiesById(List<Long> cityIds) {
+		return cityRepository.getAllCityById(cityIds);
 	}
 
     @Override
@@ -92,17 +92,21 @@ public class RequestServiceImpl implements RequestService {
 			if (!Objects.isNull(userMyRequest.getCreatedBy()) &&
 					userRepository.findById(userMyRequest.getCreatedBy()).isPresent()) {
 
-				return (userMyRequest.getIsMyRequest() != null && !userMyRequest.getIsMyRequest())
-						? requestRepository.getRequestsExcludingCreatedBy(userMyRequest.getType(),
-						userMyRequest.getCityIds(), userMyRequest.getCreatedBy())
-						: requestRepository.getRequestsIncludingCreatedBy(userMyRequest.getType(),
-						userMyRequest.getCityIds(), userMyRequest.getCreatedBy());
+				if (userMyRequest.getIsOtherRequest() != null && userMyRequest.getIsOtherRequest()) {
+                    return  requestRepository.getRequestsExcludingCreatedBy(userMyRequest.getType(),
+                    userMyRequest.getCityIds(), userMyRequest.getCreatedBy());
+                } else if (userMyRequest.getIsMyRequest() != null && userMyRequest.getIsMyRequest()) {
+                    return requestRepository.getRequestsIncludingCreatedBy(userMyRequest.getType(),
+                            userMyRequest.getCityIds(), userMyRequest.getCreatedBy());
+                }
+                return requestRepository.findByIsRequestClosedFalseOrderByIdDesc();
+
 			} else if (!Objects.isNull(userMyRequest.getCityIds()) ||
 					!Objects.isNull(userMyRequest.getType())) {
 				return requestRepository.getRequestsIncludingCreatedBy(userMyRequest.getType(),
 						userMyRequest.getCityIds(), userMyRequest.getCreatedBy());
 			} else {
-				return requestRepository.findAll();
+				return requestRepository.findByIsRequestClosedFalseOrderByIdDesc();
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -123,7 +127,7 @@ public class RequestServiceImpl implements RequestService {
         System.out.println(userRequest + "  ggggggggggggggggggggggggggggg");
         User resquestedUser = userService.getUserById(userRequest.getCreatedBy());
         String notes = request.get(Constants.NOTES);
-        String body = "Hi " + resquestedUser.getFirstName() + " \n Some one responsed for your request.here is a details, \n" +
+        String body = "Hi " + resquestedUser.getFirstName() + " \n Someone has provided a response to your request, and here are the details., \n" +
                 "Name: " + responsedUser.getFirstName() + " \n" +
                 "Phone number : " + responsedUser.getPhoneNumber() + " \n" +
                 "Email: " + responsedUser.getUsername() + " \n" +
@@ -140,9 +144,21 @@ public class RequestServiceImpl implements RequestService {
         simpleMailMessage.setText(body);
         simpleMailMessage.setFrom(Constants.EMAIL_FROM);
             javaMailSender.send(simpleMailMessage);
+            System.out.println("dfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" + resquestedUser.getUsername());
 
+        System.out.println(body);
         //CommonUtils.sendResponse(response
         return responseRepository.save(response);
+    }
+
+    private void sendMail(User resquestedUser, String body) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(resquestedUser.getUsername());
+        simpleMailMessage.setSubject(Constants.RESPONSE_EMAIL_SUBJECT);
+        simpleMailMessage.setText(body);
+        simpleMailMessage.setFrom(Constants.EMAIL_FROM);
+            javaMailSender.send(simpleMailMessage);
+
     }
 
     @Override

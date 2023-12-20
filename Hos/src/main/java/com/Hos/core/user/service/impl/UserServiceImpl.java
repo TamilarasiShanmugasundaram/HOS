@@ -45,6 +45,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPasswordAndIsDeletedFalse(username, password);
+    }
+
+
+    @Override
     public User getUserById(long id) {
         return userRepository.findByIdAndIsDeletedFalse(id);
     }

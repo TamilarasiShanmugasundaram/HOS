@@ -20,7 +20,7 @@ public class RequestDTO {
 
     private String category;
 
-	private Set<City> cities;
+	private List<City> cities;
 
     private Long createdBy;
 
@@ -45,5 +45,9 @@ public class RequestDTO {
 
     private String info;
 
+    private String location;
+
     private boolean isMyRequest;
+
+    private String dateString;
 }

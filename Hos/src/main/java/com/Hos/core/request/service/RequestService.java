@@ -17,7 +17,7 @@ public interface RequestService {
     List<City> getAllCities();
     Request createRequest(RequestFormDTO request);
     City getCityById(long id);
-	Set<City> getCitiesById(List<Long> cityIds);
+	List<City> getCitiesById(List<Long> cityIds);
     Response saveResponse(Map<String, String> request);
     Request accecptResponse(Map<String, String> request);
 
