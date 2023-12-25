@@ -127,11 +127,23 @@ public class RequestServiceImpl implements RequestService {
         System.out.println(userRequest + "  ggggggggggggggggggggggggggggg");
         User resquestedUser = userService.getUserById(userRequest.getCreatedBy());
         String notes = request.get(Constants.NOTES);
-        String body = "Hi " + resquestedUser.getFirstName() + " \n Someone has provided a response to your request, and here are the details., \n" +
+//        String body = "Hi " + resquestedUser.getFirstName() + " \nSomeone has provided a response to your request, and here are the details., \n\n" +
+//                "Name: " + responsedUser.getFirstName() + " \n" +
+//                "Phone number : " + responsedUser.getPhoneNumber() + " \n" +
+//                "Email: " + responsedUser.getUsername() + " \n" +
+//                "Notes: " + notes;
+        String body = "Hi " + resquestedUser.getFirstName() + " \nYou received a response for the below request. \n\n" +
+"The Request: \n" +
+                "Type: " + userRequest.getType() + " \n" +
+                "Category : " + userRequest.getCategory() + " \n" +
+                "Notes: " + userRequest.getInfo() + " \n\n" +
+                "The Response: \n" +
+
                 "Name: " + responsedUser.getFirstName() + " \n" +
                 "Phone number : " + responsedUser.getPhoneNumber() + " \n" +
                 "Email: " + responsedUser.getUsername() + " \n" +
                 "Notes: " + notes;
+
         response.setNotes(notes);
         response.setRequest(getRequestById(Long.parseLong(request.get(Constants.REQUESTID))));
         response.setUser(responsedUser);
@@ -147,7 +159,6 @@ public class RequestServiceImpl implements RequestService {
             System.out.println("dfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" + resquestedUser.getUsername());
 
         System.out.println(body);
-        //CommonUtils.sendResponse(response
         return responseRepository.save(response);
     }
 
