@@ -30,6 +30,7 @@ public class Constants {
     public static final String PASSWORD = "password";
     public static final String OTP = "otp";
     public static final String PHONE_NUMBER = "phone_number";
+    public static final String MOBILE_NUMBER = "phoneNumber";
     public static final String DATE_FORMAT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ssxxx";
     public static final String TIMESTAMP = "TIMESTAMP";
     public static final String TYPE = "type";

@@ -12,6 +12,7 @@ public interface UserService {
     List<User> getAllUsers();
 
     User getUserByUsername(String username);
+    User getUserByUserId(String userId);
     User getUserByUsernameAndPassword(String username, String passwordString);
 
     User getUserById(long id);
