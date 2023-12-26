@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUserId(String userId) {
+        return userRepository.findByIdAndIsDeletedFalse(Long.parseLong(userId));
+    }
+
+    @Override
     public User getUserByUsernameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPasswordAndIsDeletedFalse(username, password);
     }
@@ -102,6 +107,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getCommunityUsers(long cityId) {
-        return userRepository.findByCityIdAndIsDeletedFalse(cityId);
+        return userRepository.findByCityIdAndIsCommunityUserTrueAndIsDeletedFalse(cityId);
     }
 }

@@ -45,7 +45,7 @@ public class UserController {
 
 	@PostMapping("/get-by-id")
 	public UserDTO getUserById(@RequestBody Map<String, String> request) {
-		return new ModelMapper().map(userService.getUserByUsername(request.get(Constants.USERNAME)), UserDTO.class);
+		return new ModelMapper().map(userService.getUserByUserId(request.get(Constants.USERID)), UserDTO.class);
 	}
 
 	@PostMapping("/signup")

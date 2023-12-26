@@ -1,6 +1,6 @@
 package com.Hos.core.community.controller;
 import com.Hos.core.common.dto.CommunityDTO;
-import com.Hos.core.common.dto.UserDTO;
+import com.Hos.core.common.dto.UserResponseDTO;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.community.service.CommunityService;
 import org.modelmapper.ModelMapper;
@@ -26,7 +26,7 @@ public class CommunityController {
     }
 
     @PostMapping("/join")
-    public UserDTO joinCommunity(@RequestBody Map<String, String> request) {
-        return new ModelMapper().map(communityService.joinCommunity(request), UserDTO.class);
+    public UserResponseDTO joinCommunity(@RequestBody Map<String, String> request) {
+        return new ModelMapper().map(communityService.joinCommunity(request), UserResponseDTO.class);
     }
 }

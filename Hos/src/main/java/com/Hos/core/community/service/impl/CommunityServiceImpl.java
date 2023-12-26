@@ -1,6 +1,7 @@
 package com.Hos.core.community.service.impl;
 
 import com.Hos.core.common.dto.CommunityDTO;
+import com.Hos.core.common.dto.UserResponseDTO;
 import com.Hos.core.common.model.User;
 import com.Hos.core.common.util.Constants;
 import com.Hos.core.community.service.CommunityService;
@@ -21,18 +22,23 @@ public class CommunityServiceImpl implements CommunityService {
     UserService userService;
 
     @Autowired
-    RequestService requestService;
-
-    @Autowired
     UserRepository userRepository;
 
-    @Override
-    public User joinCommunity(Map<String, String> request) {
-        User user = userService.getUserByUsername(request.get(Constants.USERNAME));
-        user.setCommunityUser(Boolean.TRUE);
-        user.setCity(requestService.getCityById(Long.parseLong(request.get(Constants.CITY))));
-        return userRepository.save(user);
-    }
+	@Override
+	public UserResponseDTO joinCommunity(Map<String, String> request) {
+		UserResponseDTO userResponseDTO = new UserResponseDTO();
+		User user = userService.getUserByUserId(request.get(Constants.USERID));
+		System.out.println(user);
+		if (!user.isCommunityUser()) {
+			user.setCommunityUser(Boolean.TRUE);
+			userResponseDTO.setUser(userRepository.save(user));
+			userResponseDTO.setMessage("Registered Successfully");
+			return userResponseDTO;
+		} else {
+			userResponseDTO.setMessage("YOU HAVE ALREADY REGISTERED AS A COMMUNITY MEMBER");
+			return userResponseDTO;
+		}
+	}
 
     @Override
     public List<CommunityDTO> getCommunityUsers(long cityId) {
